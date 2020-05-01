@@ -1,17 +1,54 @@
-import React from 'react';
+import _ from 'lodash';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import YTSearch from 'youtube-api-search';
+import SearchBar from './search';
+import VideoList from './videoList';
+import VideoDetail from './videoDetail';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const API_KEY = 'AIzaSyC7qdPm7aCYuNt_5s_w8QsOGVtVfPvskrE';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+
+
+class App extends Component {
+    constructor(props){
+        super(props);
+
+        // Atribuindo a state o array de videos e o video selecionado
+        this.state = { 
+            videos: [],
+            selectedVideo: null
+        };
+
+        this.videoSearch('surfboards')
+    }
+
+    // Realizando consulta na API do Youtube
+    videoSearch(term) {
+        YTSearch({key: API_KEY, term: term}, (videos) => {
+            this.setState({ 
+                videos: videos,
+                selectedVideo: videos[0]
+            });
+        });
+    }
+
+    render() {
+
+        const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
+         
+        // A funcao onVideoSelected retornara o video selecionado
+        return (
+            <div>
+                <SearchBar onSearchTermChange={term => this.videoSearch(term)}/> 
+                <VideoDetail video={ this.state.selectedVideo } /> 
+                <VideoList 
+                    onVideoSelected = {selectedVideo => this.setState({ selectedVideo })} 
+                    videos= { this.state.videos }  
+                    /> 
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<App />, document.querySelector('.container'));
