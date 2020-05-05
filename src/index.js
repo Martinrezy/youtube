@@ -12,16 +12,14 @@ class App extends Component {
     constructor(props){
         super(props);
 
-        // Atribuindo a state o array de videos e o video selecionado
         this.state = { 
             videos: [],
             selectedVideo: null
         };
 
-        this.videoSearch('surfboards')
+        this.videoSearch('Código del sur Uruguay')
     }
 
-    // Realizando consulta na API do Youtube
     videoSearch(term) {
         YTSearch({key: API_KEY, term: term}, (videos) => {
             this.setState({ 
@@ -35,7 +33,6 @@ class App extends Component {
 
         const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
          
-        // A funcao onVideoSelected retornara o video selecionado
         return (
             <div>
                 <SearchBar onSearchTermChange={term => this.videoSearch(term)}/> 

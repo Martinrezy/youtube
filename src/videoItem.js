@@ -4,7 +4,6 @@ const VideoListItem = ({video, onVideoSelected}) => {
 
     const imageUrl = video.snippet.thumbnails.default.url;
    
-    // On click in item of the list, the itemSelected will be updated
     return ( 
         <li onClick={() => onVideoSelected(video)} className="list-group-item"> 
             <div className="video-list media">
