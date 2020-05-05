@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const VideoListItem = ({video, onVideoSelected}) => { 
+class VideoListItem extends Component {
+    
+    constructor(props){
+        super(props);
+    }
 
-    const imageUrl = video.snippet.thumbnails.default.url;
+    imageUrl = this.props.video.snippet.thumbnails.default.url;
    
-    return ( 
-        <li onClick={() => onVideoSelected(video)} className="list-group-item"> 
+    render() {
+        return ( 
+        <li onClick={() => this.props.onVideoSelected(this.props.video)} className="list-group-item"> 
             <div className="video-list media">
                 <div className="media-left">
-                    <img className="media-object" src={imageUrl}/>
+                    <img className="media-object" src={this.imageUrl}/>
                 </div>
                 <div className="media-body">
-                    <div className="media-heading">{ video.snippet.title }</div>
+                    <div className="media-heading">{ this.props.video.snippet.title }</div>
                 </div>
             </div>
         </li>
-    )
+        );
+    }
 };
 
 export default VideoListItem;

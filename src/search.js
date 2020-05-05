@@ -10,14 +10,14 @@ class SearchBar extends Component {
     
     render() {
         return (
-            <div className="search-bar" style={{display:"flex",justifyContent: "space-between"}}> 
+            <div style={{display:"flex", justifyContent: "space-between", padding: "15px"}}> 
                 <input 
                 value= {this.state.term}
                 placeholder = "Search..."
-                onKeyPress={event => this.clic(event)}
+                onKeyPress={event => this.onEnterPressed(event)}
                 onChange={event => this.onInputChange(event.target.value)}
                 />
-                <button onClick={() => this.search()}>Search</button>
+                <button onClick={() => this.onClick()}>Search</button>
             </div>
         );
     }
@@ -26,11 +26,11 @@ class SearchBar extends Component {
         this.setState({term});
     }
 
-    clic(term) {
-        if(term.key === 'Enter') this.search();
+    onEnterPressed(term) {
+        if(term.key === 'Enter') this.onClick();
     }
 
-    search() {
+    onClick() {
         this.props.onSearchTermChange(this.state.term);
     }
 }
