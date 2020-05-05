@@ -5,14 +5,14 @@ class SearchBar extends Component {
     constructor(props){
         super(props);
 
-        this.state = { term: ''};
+        this.state = { inputValue: ''};
     }
     
     render() {
         return (
             <div style={{display:"flex", justifyContent: "space-between", padding: "15px"}}> 
                 <input 
-                value= {this.state.term}
+                value= {this.state.inputValue}
                 placeholder = "Search..."
                 onKeyPress={event => this.onEnterPressed(event)}
                 onChange={event => this.onInputChange(event.target.value)}
@@ -22,16 +22,16 @@ class SearchBar extends Component {
         );
     }
 
-    onInputChange(term){
-        this.setState({term});
+    onInputChange(inputValue){
+        this.setState({inputValue});
     }
 
-    onEnterPressed(term) {
-        if(term.key === 'Enter') this.onClick();
+    onEnterPressed(inputValue) {
+        if(inputValue.key === 'Enter') this.onClick();
     }
 
     onClick() {
-        this.props.onSearchTermChange(this.state.term);
+        this.props.onSearchTermChange(this.state.inputValue);
     }
 }
 
