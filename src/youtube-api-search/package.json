@@ -28,7 +28,7 @@
   },
   "bundleDependencies": false,
   "dependencies": {
-    "axios": "^0.7.0"
+    "axios": "^0.19.2"
   },
   "deprecated": false,
   "description": "Search for youtube videos",
